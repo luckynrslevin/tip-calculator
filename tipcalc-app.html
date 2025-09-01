@@ -72,6 +72,12 @@
       border-bottom: 1px solid #eee;
     }
 
+    /* Highlight 10% and 20% rows */
+    tbody tr:nth-child(2),
+    tbody tr:nth-child(4) {
+      background-color: #f2f2f2;
+    }
+
     @media (max-width: 400px) {
       .app-header {
         font-size: 1.2em;
@@ -108,23 +114,23 @@
       <tbody>
         <tr>
           <td>5</td>
-          <td id="tip5">0.00</td>
-          <td id="total5">0.00</td>
+          <td id="tip5">0,00 €</td>
+          <td id="total5">0,00 €</td>
         </tr>
         <tr>
           <td>10</td>
-          <td id="tip10">0.00</td>
-          <td id="total10">0.00</td>
+          <td id="tip10">0,00 €</td>
+          <td id="total10">0,00 €</td>
         </tr>
         <tr>
           <td>15</td>
-          <td id="tip15">0.00</td>
-          <td id="total15">0.00</td>
+          <td id="tip15">0,00 €</td>
+          <td id="total15">0,00 €</td>
         </tr>
         <tr>
           <td>20</td>
-          <td id="tip20">0.00</td>
-          <td id="total20">0.00</td>
+          <td id="tip20">0,00 €</td>
+          <td id="total20">0,00 €</td>
         </tr>
       </tbody>
     </table>
@@ -132,37 +138,36 @@
   </div>
 
   <script>
-  const amountInput = document.getElementById('amount');
+    const amountInput = document.getElementById('amount');
 
-  function formatCurrency(value) {
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR'
-    }).format(value);
-  }
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('de-DE', {
+        style: 'currency',
+        currency: 'EUR'
+      }).format(value);
+    }
 
-  amountInput.addEventListener('input', () => {
-    const amount = parseFloat(amountInput.value);
-    const tipPercents = [5, 10, 15, 20];
+    amountInput.addEventListener('input', () => {
+      const amount = parseFloat(amountInput.value);
+      const tipPercents = [5, 10, 15, 20];
 
-    tipPercents.forEach(percent => {
-      const tipElement = document.getElementById(`tip${percent}`);
-      const totalElement = document.getElementById(`total${percent}`);
+      tipPercents.forEach(percent => {
+        const tipElement = document.getElementById(`tip${percent}`);
+        const totalElement = document.getElementById(`total${percent}`);
 
-      if (!isNaN(amount)) {
-        const tipValue = amount * percent / 100;
-        const totalValue = amount + tipValue;
+        if (!isNaN(amount)) {
+          const tipValue = amount * percent / 100;
+          const totalValue = amount + tipValue;
 
-        tipElement.textContent = formatCurrency(tipValue);
-        totalElement.textContent = formatCurrency(totalValue);
-      } else {
-        tipElement.textContent = formatCurrency(0);
-        totalElement.textContent = formatCurrency(0);
-      }
+          tipElement.textContent = formatCurrency(tipValue);
+          totalElement.textContent = formatCurrency(totalValue);
+        } else {
+          tipElement.textContent = formatCurrency(0);
+          totalElement.textContent = formatCurrency(0);
+        }
+      });
     });
-  });
-</script>
+  </script>
 
-  
 </body>
 </html>

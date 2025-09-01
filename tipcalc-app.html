@@ -132,29 +132,37 @@
   </div>
 
   <script>
-    const amountInput = document.getElementById('amount');
+  const amountInput = document.getElementById('amount');
 
-    amountInput.addEventListener('input', () => {
-      const amount = parseFloat(amountInput.value);
-      const tipPercents = [5, 10, 15, 20];
+  function formatCurrency(value) {
+    return new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(value);
+  }
 
-      tipPercents.forEach(percent => {
-        const tipElement = document.getElementById(`tip${percent}`);
-        const totalElement = document.getElementById(`total${percent}`);
+  amountInput.addEventListener('input', () => {
+    const amount = parseFloat(amountInput.value);
+    const tipPercents = [5, 10, 15, 20];
 
-        if (!isNaN(amount)) {
-          const tipValue = amount * percent / 100;
-          const totalValue = amount + tipValue;
+    tipPercents.forEach(percent => {
+      const tipElement = document.getElementById(`tip${percent}`);
+      const totalElement = document.getElementById(`total${percent}`);
 
-          tipElement.textContent = tipValue.toFixed(2);
-          totalElement.textContent = totalValue.toFixed(2);
-        } else {
-          tipElement.textContent = '0.00';
-          totalElement.textContent = '0.00';
-        }
-      });
+      if (!isNaN(amount)) {
+        const tipValue = amount * percent / 100;
+        const totalValue = amount + tipValue;
+
+        tipElement.textContent = formatCurrency(tipValue);
+        totalElement.textContent = formatCurrency(totalValue);
+      } else {
+        tipElement.textContent = formatCurrency(0);
+        totalElement.textContent = formatCurrency(0);
+      }
     });
-  </script>
+  });
+</script>
 
+  
 </body>
 </html>
